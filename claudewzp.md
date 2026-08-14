@@ -234,8 +234,7 @@ pip install python-docx pypdf pdfplumber openpyxl reportlab Pillow
 | `jiaowuzhidu/` | 教务处教学管理制度 | `venv-doc/` | B 类 |
 | `student-evaluate/` | "三位一体"学生评价改革 | `venv-doc/` | B 类 |
 | `mcu-book/` | 《单片机应用技术（AI版）》教材编写 | — | A/B 类 |
-| `BMSpython/` | 梯次利用锂电池管理系统（旧版） | `venv-image/` | A 类 |
-| `bmspython1/` | 梯次利用锂电池管理系统（重构版） | `venv-image/` | A 类 |
+| `bmspython/` | 梯次利用锂电池管理系统（重构版，旧版已删除） | `venv-image/` | A 类 |
 | `wzpclaude/` | Claude Code 使用指南与配置 | — | — |
 
 **项目间关联**：
