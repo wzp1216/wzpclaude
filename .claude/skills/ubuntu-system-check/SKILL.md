@@ -9,7 +9,8 @@ description: 检查与维护本地 Ubuntu 系统。当用户要求"检查/体检
 
 ## 使用流程
 
-1. 按下面五类逐项执行**只读**检查命令（不需要 sudo 的优先，必须 sudo 的再提权）。
+0. **sudo 预授权（开始检查前一次完成）**：直接提示用户输入 sudo 密码。用户输入密码 → 先执行 `echo '<密码>' | sudo -S -v` 缓存凭据（约 15 分钟），之后所有需要 sudo 的命令直接执行，不再逐条询问；用户不输入（跳过/拒绝）→ 跳过全部需要 sudo 的命令，报告中标注"⚠️ 未检查（无 sudo 权限）"。
+1. 按下面五类逐项执行**只读**检查命令（不需要 sudo 的优先，需要 sudo 的用第 0 步的凭据执行）。
 2. 汇总为报告：每类一个小节，用 `✅`（正常）/ `⚠️`（异常/需关注）/ `❌`（问题）标记，给出关键数值和合理阈值。
 3. 报告末尾列出"建议动作"，区分**无需确认的只读建议**与**需用户确认的维护动作**，等用户拍板再执行维护。
 
@@ -43,10 +44,10 @@ systemctl list-unit-files --state=enabled | head -40  # 开机自启项（检查
 ## 三、更新与软件包
 
 ```bash
-apt-get update -qq 2>/dev/null && apt list --upgradable 2>/dev/null   # 可升级包（先 update 再列）
+sudo apt-get update -qq 2>/dev/null && apt list --upgradable 2>/dev/null   # 可升级包（先 update 再列，update 需 sudo）
 apt list --upgradable 2>/dev/null | grep -i security || true          # 其中安全更新
 dpkg --audit                                           # 损坏的软件包状态
-apt-get check                                          # 依赖一致性
+sudo apt-get check                                      # 依赖一致性（需 dpkg 锁，需 sudo）
 dpkg -l 'linux-image-*' | grep ^ii | awk '{print $2}'  # 已安装内核（与 uname -r 对比，旧内核可清理）
 apt-get -s autoremove | head -20                       # 模拟 autoremove（-s 只预览，不执行！）
 ```
@@ -134,7 +135,7 @@ lsof "$path" 2>/dev/null
 ## 安全注意事项
 
 - 检查阶段一律只读；`apt-get -s` 等 `-s/--dry-run` 模拟命令可以放心跑，但**严禁**把模拟命令的 `-s` 去掉后顺手执行。
-- 需要 sudo 的命令逐条执行并说明用途，不批量提权；不在报告中展示密码。
+- 需要 sudo 的命令统一使用第 0 步获取的密码执行（建议先 `echo '<密码>' | sudo -S -v` 缓存凭据，后续命令免密）；密码不回显、不写入文件、不展示在报告中。**维护动作（升级/清理/重启或禁用服务/改防火墙）不因已获得密码而自动执行，仍须逐项确认。**
 - 涉及重启服务、禁用服务、改防火墙等可能影响当前会话的操作，必须等用户明确同意。
 - 检查结果以报告形式给出，不自动"修复"；用户说"你自己看着办/自动处理"时，也要先列出将执行的动作再动手。
 - **基于历史推断的文件清理风险更高**：历史命令 ≠ 用户不需要该文件。删除前必须核对文件真实存在、大小、修改时间，向用户说明"为什么判断它是垃圾"，默认移入回收站而非 rm，绝不清理工作文档（pdf/ppt/docx/xlsx 等办公文件需特别标注，默认跳过）。
