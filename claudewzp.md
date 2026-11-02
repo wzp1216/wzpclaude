@@ -18,9 +18,10 @@
 
 ### 与新电脑的配合
 
-1. **项目文件**：本文件描述的是 `~/claudewzp/` 工作区结构。若项目文件也已复制且目录结构一致，Claude 可直接上手；若项目在别处，告知 Claude 实际路径即可。
+1. **项目文件**：本文件描述的是万志平个人工作区结构（本机根目录 `/media/data/claudewzp/`，`~/data` 为软链）。若项目文件也已复制且目录结构一致，Claude 可直接上手；若项目在别处，告知 Claude 实际路径即可。
 2. **Python 环境**：若新电脑没有 `venv-image/`、`venv-doc/`，按下文"Python 环境"一节初始化。
 3. **与新电脑已有 CLAUDE.md 的关系**：本文件补充通用规范；目标项目自身的 CLAUDE.md 优先级高于本文件。
+4. **记忆与设置同步**：wzpclaude 仓库的 `claude-share/` 提供脱敏设置模板（`settings.example.json`）与精选记忆快照（`memory/`），按其中 README.md 的步骤同步：模板填密钥后放到 `~/.claude/settings.json`，记忆文件拷入对应项目的记忆目录（`~/.claude/projects/<项目>/memory/`）。
 
 ---
 
@@ -266,4 +267,4 @@ pip install python-docx pypdf pdfplumber openpyxl reportlab Pillow
 ---
 
 *生成日期：2026-08-13*
-*配套文件：`claude-code-guide.md`（Claude Code 使用教程）、`.claude/prompts/`（角色模板完整版）、`PYTHON_ENVIRONMENTS.md`（环境包清单）*
+*配套文件：`claude-code-guide.md`（Claude Code 使用教程）、`.claude/prompts/`（角色模板完整版）、`PYTHON_ENVIRONMENTS.md`（环境包清单）、`claude-share/`（跨机器共享的设置模板与记忆快照，同步步骤见其中 README.md）*
