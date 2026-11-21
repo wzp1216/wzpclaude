@@ -22,6 +22,8 @@
 2. **Python 环境**：若新电脑没有 `venv-image/`、`venv-doc/`，按下文"Python 环境"一节初始化。
 3. **与新电脑已有 CLAUDE.md 的关系**：本文件补充通用规范；目标项目自身的 CLAUDE.md 优先级高于本文件。
 4. **记忆与设置同步**：wzpclaude 仓库的 `claude-share/` 提供脱敏设置模板（`settings.example.json`）与精选记忆快照（`memory/`），按其中 README.md 的步骤同步：模板填密钥后放到 `~/.claude/settings.json`，记忆文件拷入对应项目的记忆目录（`~/.claude/projects/<项目>/memory/`）。
+5. **技能同步**：技能在独立仓库 git@github.com:wzp1216/claudeskill.git，clone 到 `~/.claude/skills/` 即可被 Claude Code 直接识别（9 个技能：办公/学术/图表类，清单见 wzpclaude 仓库 CLAUDE.md）。
+6. **MCP 同步**：`github` MCP 服务器（https://api.githubcopilot.com/mcp）配置已含在 settings 模板的 `mcpServers` 段，随 settings 模板复制即生效。
 
 ---
 
@@ -190,6 +192,8 @@
 | Word/PDF/Excel 文档处理 | `venv-doc/` |
 | 纯 Python 标准库脚本 | 系统 Python |
 
+> 本机 venv 绝对路径：`/media/data/claudewzp/venv-image/`、`/media/data/claudewzp/venv-doc/`。在**工作区以外**的目录工作时，用绝对路径激活（`source /media/data/claudewzp/venv-image/bin/activate`），无需重新安装依赖；激活命令已在 `~/.claude/settings.json` 权限白名单中，不会弹权限询问。
+
 ### 使用方式
 
 ```bash
@@ -266,5 +270,5 @@ pip install python-docx pypdf pdfplumber openpyxl reportlab Pillow
 
 ---
 
-*生成日期：2026-08-13*
-*配套文件：`claude-code-guide.md`（Claude Code 使用教程）、`.claude/prompts/`（角色模板完整版）、`PYTHON_ENVIRONMENTS.md`（环境包清单）、`claude-share/`（跨机器共享的设置模板与记忆快照，同步步骤见其中 README.md）*
+*生成日期：2026-08-13，最近更新：2026-11-21*
+*配套文件：`claude-code-guide.md`（Claude Code 使用教程）、`.claude/prompts/`（角色模板完整版）、`PYTHON_ENVIRONMENTS.md`（环境包清单）、`claude-share/`（跨机器共享的设置模板与记忆快照，同步步骤见其中 README.md）、技能独立仓库 `claudeskill.git`（clone 至 `~/.claude/skills/`）*

@@ -13,3 +13,6 @@ Thumbs.db
 *.tmp
 *.log
 .claude/*.tmp.*
+
+# 本地密码备忘（绝不入库）
+pass.md

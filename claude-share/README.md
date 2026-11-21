@@ -7,7 +7,7 @@
 
 | 文件/目录 | 内容 |
 |---|---|
-| `settings.example.json` | 全局设置（`~/.claude/settings.json`）脱敏模板：API 代理、权限白名单、插件、主题。**密钥已用占位符替换** |
+| `settings.example.json` | 全局设置（`~/.claude/settings.json`）脱敏模板：API 代理、权限白名单、插件、MCP 服务器（github）、主题。**密钥已用占位符替换** |
 | `memory/` | 精选关键记忆，原样保留记忆 frontmatter（可直接拷入 Claude 记忆目录） |
 | `README.md` | 本文件 |
 
@@ -29,6 +29,16 @@
 |---|---|
 | `双高项目概况.md` | 浙江工业职业技术学院第二期省双高专业群建设核心数据（撰写双高材料直接引用） |
 
+### 工作区项目进度（工作区项目在任一机器继续时有用）
+
+| 文件 | 内容 |
+|---|---|
+| `paper-ai-capability-map-paper.md` | 能力图谱论文：框架已定、初稿已成，修改稿等批注 |
+| `new-lesson-plans-project.md` | 教案项目：22 份已生成，catalog+content+generate 架构可重跑再生成 |
+| `2026-data-collection-project.md` | 数据采集26：AAA.pptx 新增页容器与行高防裁切约定 |
+| `selfcheck-compare-xlsx.md` | 9 个 Word 自查表 → 对比 xlsx，脚本重跑即再生成 |
+| `teaching-ppt-reorganize-project.md` | 教学PPT整理：L5–L21 已交付验收，任务完结 |
+
 ### LVpc 本机专属（仅在 LVpc 本机上工作时有意义，其他机器仅作背景了解）
 
 | 文件 | 内容 |
@@ -39,6 +49,9 @@
 | `system-freeze-diagnosis.md` | 2026-09-07 死机根因（内存耗尽假死）与 earlyoom 防护 |
 | `mstsc-gdm-login-loop.md` | mstsc 断开后 GDM 登录循环根因与 KillDisconnected=true 预防 |
 | `stm32-gdb-orphan-process.md` | STM32 调试残留孤儿 gdb 进程处理（已部署 gdb-watchdog 定时器） |
+| `proxy-and-github-mcp.md` | 可用代理 7891（xray/v2rayN，启动后等 1-2 分钟）；GitHub 托管 MCP 只能 PAT 认证 |
+| `system-check-script.md` | ubuntu-system-check 技能的免 Claude 脚本版（system_cmd/system-check.sh）：检查+日志+复杂/常规判定 |
+| `xzl313-toshiba-printer.md` | XZL313 东芝 e-STUDIO2518A @10.88.11.35 已配官方 CUPS 驱动 |
 
 ## 另一台机器上的同步步骤
 
@@ -48,15 +61,16 @@
    git clone git@github.com:wzp1216/claudeskill.git ~/.claude/skills
    ```
 2. **全局配置**：把 `claudewzp.md` 复制为 `~/.claude/CLAUDE.md`（详见该文件"〇、使用说明"）。
-3. **全局设置**：复制 `settings.example.json` 为 `~/.claude/settings.json`，填入两个占位符密钥；同时检查 permissions 中两条 `Bash(source /home/wzp/...)` venv 激活路径是否与新机器一致，不一致则改路径。
+3. **全局设置**：复制 `settings.example.json` 为 `~/.claude/settings.json`，填入两个占位符密钥；同时检查 permissions 中两条 `Bash(source /media/data/claudewzp/...)` venv 激活路径是否与新机器一致，不一致则改路径。`mcpServers` 段（github MCP）随模板一并生效。
 4. **记忆**：把 `memory/` 中需要的文件拷入 Claude 对应项目的记忆目录 `~/.claude/projects/<项目目录名转义>/memory/`（Claude 按项目自动加载记忆）。通用类可拷入常用项目的记忆目录；LVpc 专属类只需拷入本机项目记忆目录。
 5. **技能**：第 1 步克隆的 `~/.claude/skills` 即技能仓库，Claude Code 直接识别，无需额外安装。
 
 ## 回传更新（记忆变化后）
 
-记忆的实时副本在 `~/.claude/projects/*/memory/`，本目录是 2026-11-03 导出的**手动快照**。本机记忆有值得共享的更新时，手动同步到本目录（新增/修改文件后 `git diff` 检查）再 commit+push；不要反向把仓库里的旧快照拷回本机记忆目录覆盖新记忆。
+记忆的实时副本在 `~/.claude/projects/*/memory/`，本目录是 2026-11-21 导出的**手动快照**。本机记忆有值得共享的更新时，手动同步到本目录（新增/修改文件后 `git diff` 检查）再 commit+push；不要反向把仓库里的旧快照拷回本机记忆目录覆盖新记忆。
 
 ## 安全约定
 
 - **密钥一律不进仓库**：`settings.example.json` 只含占位符；sudo 密码不写入任何文件。
+- 本机密码备忘存仓库根目录 `pass.md`（OA 等），该文件已被 `.gitignore` 排除，**绝不提交、绝不推送**。
 - 记忆内容若涉及敏感数据（学生信息、内部数据），入库前先评估脱敏。

@@ -117,8 +117,8 @@
       "Bash(lpstat *)",
       "Bash(python3 --version)",
       "Bash(python3 -V)",
-      "Bash(source /home/wzp/claudewzp/venv-image/bin/activate)",
-      "Bash(source /home/wzp/claudewzp/venv-doc/bin/activate)",
+      "Bash(source /media/data/claudewzp/venv-image/bin/activate)",
+      "Bash(source /media/data/claudewzp/venv-doc/bin/activate)",
       "Bash(sed -n *)",
       "Bash(lsb_release *)",
       "Bash(lscpu *)",
@@ -174,6 +174,18 @@
         "source": "github",
         "repo": "anthropics/skills"
       }
+    },
+    "knowledge-work-plugins": {
+      "source": {
+        "source": "github",
+        "repo": "anthropics/knowledge-work-plugins"
+      }
+    }
+  },
+  "mcpServers": {
+    "github": {
+      "type": "http",
+      "url": "https://api.githubcopilot.com/mcp"
     }
   },
   "theme": "light",
